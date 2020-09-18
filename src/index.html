@@ -6,12 +6,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/scss" href="./css/base.scss">
     <link href="https://fonts.googleapis.com/css?family=Verdana" rel='stylesheet'>
+    <link href='https://fonts.googleapis.com/css?family=Dancing+Script' rel='stylesheet'>
   </head>
   <body>
     <section class='header'>
-        <a class='menu-option menu-option-1'>menu option 1</a>
-        <a class='menu-option menu-option-2'>menu option 2</a>
-        <a class='menu-option menu-option-3'>menu option 3</a>
+        <a class='menu-option menu-option-1'>About Us</a>
+        <a class='menu-option menu-option-2'>Admin Login</a>
+        <a class='menu-option menu-option-3'>Logout</a>
         <a class='logo-text'>Travel Tracker</a>
     </section>
     <main class='main'>
@@ -22,11 +23,43 @@
         <button class='login-button'>Login</button>
       </section>
       <section class='traveler-dashboard'>
-        <a>Welcome!</a>
+        <section class='traveler-dashboard-header'>
+          <h2 class='traveler-dashboard-greeting'>Welcome!</h2>
+          <a class='traveler-expenses'>This year's travel expenses: $[0.00]</a>
+        </section>
+        <section class='traveler-dashboard-main'>
+          <section class='traveler-trip-info traveler-dashboard-widget'>
+            <section class='upcoming-trips trip-info-section'>
+              <h1 class='trip-info-title'>Upcoming Trips</h1>
+              <a class='upcoming-trips-info trip-info-content'>info goes here</a>
+            </section>
+            <section class='pending-trips trip-info-section'>
+              <h1 class='trip-info-title'>Pending Trips</h1>
+              <a class='pending-trips-info trip-info-content'>info goes here</a>
+            </section>
+            <section class='past-trips trip-info-section'>
+              <h1 class='trip-info-title'>Past Trips</h1>
+              <a class='past-trips-info trip-info-content'>info goes here</a>
+            </section>
+          </section>
+          <section class='traveler-planner traveler-dashboard-widget'>
+            <h1 class='planner-title'>Planner</h1>
+            <section class='trip-info-form planner-section'>
+              <section class='info-form info-form-date'>Date: <input class='planner-input planner-input-date'></input></section>
+              <section class='info-form info-form-duration'>Duration: <input class='planner-input' placeholder='Length of Trip'></input></section>
+              <section class='info-form info-form-travelers'>Number of Travelers: <input class='planner-input' placeholder='0'></input></section>
+              <button class='planner-button'>Get Estimated Cost</button>
+            </section>
+            <section class='trip-booking planner-section'>
+              <h2 class='trip-booking-title'>Estimated Cost:<h2>
+              <a class='trip-cost'>Cost Goes Here</a><br></br>
+              <button class='planner-button'>Book Trip</button>
+            </section>
+          </section>
+        </section>
       </section>
     </main>
     <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
 </html>
