@@ -1,7 +1,12 @@
 class Traveler {
-  constructor(id, name, travelerType) {
-    this.id = id;
-    this.name = name;
-    this.travelerType = travelerType;
+  constructor(travelerData) {
+    this.travelerData = travelerData
+    this.id = travelerData.id;
+    this.name = travelerData.name;
+    this.travelerType = travelerData.travelerType;
+    this.trips = [];
+    this.amountSpent = 0;
   }
 }
+
+export default Traveler;
