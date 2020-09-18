@@ -1,3 +1,6 @@
+import { expect } from 'chai';
+import Traveler from '../src/traveler.js'
+
 describe('Traveler', function() {
   let traveler;
 
@@ -30,6 +33,8 @@ describe('Traveler', function() {
         }
     ]
   })
+  it('should be a function', () => {
+    expect('Traveler').to.be.a('function');
+  })
 
-  
 })
