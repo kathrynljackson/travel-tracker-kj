@@ -1,4 +1,4 @@
-class Trips {
+class Trip {
  constructor(destinationData) {
   this.destinationData = destinationData,
   this.id = destinationData.id,
@@ -10,4 +10,4 @@ class Trips {
  }
 }
 
-export default Trips;
+export default Trip;
