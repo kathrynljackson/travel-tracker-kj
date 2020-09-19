@@ -9,3 +9,5 @@ class Trips {
   this.suggestedActivities = []
  }
 }
+
+export default Trips;
