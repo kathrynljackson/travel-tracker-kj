@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import Trip from '../src/traveler.js';
+import Trip from '../src/trip.js';
 
 describe('Trip', function() {
 let trip;
@@ -43,4 +43,23 @@ let tripData;
     trip = new Trip(tripData);
   })
 
+  it('should be a function', () => {
+    expect(Trip).to.be.a('function');
+  })
+
+  it('should be an instance of Trip', () => {
+    expect(trip).to.be.an.instanceOf(Trip);
+  })
+
+  it('should take in the traveler\'s data as an argument', () => {
+    trip = new Trip(tripData[0]);
+    expect(trip.tripData).to.equal(tripData[0]);
+    expect(trip.id).to.equal(1);
+    expect(trip.destinationID).to.equal(49);
+    expect(trip.travelers).to.equal(1);
+    expect(trip.date).to.equal("2019/09/16");
+    expect(trip.duration).to.equal(8)
+    expect(trip.status).to.equal("approved");
+    expect(trip.suggestedActivities).to.deep.equal([]);
+  })
 })
