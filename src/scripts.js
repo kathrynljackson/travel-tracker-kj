@@ -12,6 +12,8 @@ let traveler;
 
 
 window.addEventListener('load', fetchRequests.getData);
+window.addEventListener('load', retrieveData);
+window.addEventListener('load', generateTraveler);
 
 function retrieveData(){
   fetchRequests.getData()
@@ -29,3 +31,4 @@ function retrieveData(){
 
 function generateTraveler() {
   traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
+}
