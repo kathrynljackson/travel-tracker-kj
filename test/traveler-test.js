@@ -56,4 +56,5 @@ describe('Traveler', function() {
     expect(traveler.travelerType).to.equal("relaxer");
   })
 
+
 })
