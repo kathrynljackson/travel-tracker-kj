@@ -32,4 +32,27 @@ describe('Traveler', function() {
         "alt": "opera house and city buildings on the water with boats"
         },
     ]
+    destinationData = sampleDestinations;
+    destination = new Destination(destinationData);
   })
+
+  it('should be a function', () => {
+    expect(Destination).to.be.a('function');
+  })
+
+  it('should be an instance of Destination', () => {
+    expect(destination).to.be.an.instanceOf(Destination);
+  })
+
+  it('should take in the traveler\'s data as an argument', () => {
+    destination = new Destination(destinationData[0]);
+    expect(destination.destinationData).to.equal(destinationData[0]);
+    expect(destination.id).to.equal(1);
+    expect(destination.destination).to.equal("Lima, Peru");
+    expect(destination.estimatedLodgingCostPerDay).to.equal(70);
+    expect(destination.estimatedFlightCostPerPerson).to.equal(400);
+    expect(destination.image).to.equal("https://images.unsplash.com/photo-1489171084589-9b5031ebcf9b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2089&q=80"),
+    expect(destination.alt).to.equal("overview of city buildings with a clear sky");
+  })
+
+});
