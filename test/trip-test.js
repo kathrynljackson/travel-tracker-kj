@@ -55,11 +55,17 @@ let tripData;
     trip = new Trip(tripData[0]);
     expect(trip.tripData).to.equal(tripData[0]);
     expect(trip.id).to.equal(1);
+    expect(trip.userID).to.equal(44);
     expect(trip.destinationID).to.equal(49);
     expect(trip.travelers).to.equal(1);
     expect(trip.date).to.equal("2019/09/16");
     expect(trip.duration).to.equal(8)
     expect(trip.status).to.equal("approved");
     expect(trip.suggestedActivities).to.deep.equal([]);
+  })
+
+  it('should find each traveler\'s trips', () => {
+    trip.findMyTrips(44);
+    expect(trip.findMyTrips(44)).to.deep.equal([tripData[0]])
   })
 })
