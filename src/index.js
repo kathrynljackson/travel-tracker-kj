@@ -9,6 +9,7 @@ import './images/turing-logo.png'
 
 
 import Traveler from './traveler.js';
+import Trip from './trip.js';
 import fetchRequests from './fetch-requests.js';
 import domUpdates from './domUpdates.js';
 
@@ -22,6 +23,8 @@ let allDestinations;
 let traveler;
 let travelerName;
 let createData = [];
+let trip;
+
 
 
 window.addEventListener('load', fetchRequests.getData);
@@ -48,31 +51,37 @@ function retrieveData(){
     console.log('allTravelers inside retrieveData()', allTravelers);
     console.log('allTrips inside retrieveData()',allTrips);
     console.log('allDestinations inside retrieveData()', allDestinations);
+    generateTraveler();
   })
 }
 
 
-// function generateTraveler() {
-//   let travelerID = Math.floor(Math.random() * allTravelers.length);
-//   let generatedTraveler = traveler.getTravelerData(travelerID);
-//   return generateTraveler;
+function generateTraveler() {
+  traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
+  let travelerName = traveler.getFirstName();
+  domUpdates.displayTravelerGreeting(travelerName);
+
+  // let travelerID = traveler.id;
+  let trip = new Trip(allTrips);
+  let travelerTrips = trip.findMyTrips(traveler.id);
+  domUpdates.displayAllTrips(travelerTrips);
+}
+
+// function createSingleTravelerData(travelerData) {
+//   traveler = new Traveler(travelerData)
 // }
-
-function createSingleTravelerData(travelerData) {
-  traveler = new Traveler(travelerData)
-}
-
-function createTravelerData(travelerData) {
-  allTravelers = travelerData;
-}
-
-function createTripData(tripData) {
-  allTrips = tripData;
-}
-
-function createDestinationData(destinationData) {
-  allDestinations = destinationData;
-}
+//
+// function createTravelerData(travelerData) {
+//   allTravelers = travelerData;
+// }
+//
+// function createTripData(tripData) {
+//   allTrips = tripData;
+// }
+//
+// function createDestinationData(destinationData) {
+//   allDestinations = destinationData;
+// }
 
 
 function consoleLog(){
