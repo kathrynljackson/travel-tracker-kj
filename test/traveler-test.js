@@ -35,7 +35,6 @@ describe('Traveler', function() {
         }
     ];
 
-
     travelerData = sampleTravelers;
     traveler = new Traveler(travelerData);
   })
@@ -50,11 +49,18 @@ describe('Traveler', function() {
 
   it('should take in the traveler\'s data as an argument', () => {
     traveler = new Traveler(travelerData[0]);
+
     expect(traveler.travelerData).to.equal(travelerData[0]);
     expect(traveler.id).to.equal(1);
     expect(traveler.name).to.equal("Ham Leadbeater");
     expect(traveler.travelerType).to.equal("relaxer");
   })
 
+  it('should return the user\'s first name', () => {
+    traveler = new Traveler(travelerData[1]);
+    let firstName = traveler.getFirstName();
 
+    traveler.getFirstName();
+    expect(firstName).to.equal('Rachael');
+  })
 })
