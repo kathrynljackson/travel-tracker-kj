@@ -58,7 +58,7 @@ describe('Traveler', function() {
   it('should find the destination information', () => {
     destination.getDestinationDetails(1);
 
-    expect(destination.getDestinationDetails(1)).to.deep.equal([destinationData[0]]);
+    expect(destination.getDestinationDetails(1)).to.equal(destinationData[0]);
   })
 
 });
