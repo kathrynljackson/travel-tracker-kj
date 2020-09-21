@@ -102,17 +102,19 @@ function generateTraveler() {
   console.log(tripCosts);
   console.log(traveler.amountSpent);
 
-  // let myPastTrips = trip.findPastTrips(travelerTrips);
-  // console.log('myPastTrips', myPastTrips);
-  //
-  // let myPendingTrips = trip.findMyPendingTrips(travelerTrips);
-  // console.log('myPendingTrips', myPendingTrips);
-//today.getTime is not a function
+  let pastTrips = trip.findPastTrips(travelerApprovedTrips);
+  console.log('myPastTrips', pastTrips);
+  domUpdates.displayPastTrips(pastTrips, travelerDestinations);
+
+  let upcomingTrips = trip.findUpcomingTrips(travelerApprovedTrips);
+  console.log('myUpcomingTrips', upcomingTrips);
+  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
+
 
 
 
   //domUpdates.displayAllTrips(traveler, travelerDestinations);
-  domUpdates.displayApprovedTrips(travelerApprovedTrips, travelerDestinations);
+  //domUpdates.displayApprovedTrips(travelerApprovedTrips, travelerDestinations);
   domUpdates.displayPendingTrips(travelerPendingTrips, travelerDestinations);
   domUpdates.displayCostSpent(traveler);
 

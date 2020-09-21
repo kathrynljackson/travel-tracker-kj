@@ -14,10 +14,40 @@ let domUpdates = {
     //it needs to be travelerName, not traveler.name
  },
 
-  displayAllTrips(traveler, travelerDestinations) {
-    let destination = new Destination(travelerDestinations);
+  // displayAllTrips(traveler, travelerDestinations) {
+  //   let destination = new Destination(travelerDestinations);
+  //
+  //   let separateTrips = traveler.trips.forEach(trip => {
+  //     let destinationInfo = destination.getDestinationDetails(trip.destinationID);
+  //     document.querySelector('.upcoming-trips-info').innerHTML +=
+  //     `<section class='new-trip-info'>
+  //         <p><a>Destination:</a> ${destinationInfo.destination}</p>
+  //         <p><a>Date:</a> ${trip.date}</p>
+  //         <p><a>Duration:</a> ${trip.duration} days</p>
+  //         <p><a>Status:</a> ${trip.status}</p>
+  //       </section>`
+  //   });
+  //   console.log('displayAllTrips is running');
+  // },
 
-    let separateTrips = traveler.trips.forEach(trip => {
+  // displayApprovedTrips(travelerApprovedTrips, travelerDestinations) {
+  //   let destination = new Destination(travelerDestinations);
+  //   let separateTrips = travelerApprovedTrips.forEach(trip => {
+  //     let destinationInfo = destination.getDestinationDetails(trip.destinationID);
+  //     document.querySelector('.upcoming-trips-info').innerHTML +=
+  //     `<section class='new-trip-info'>
+  //         <p><a>Destination:</a> ${destinationInfo.destination}</p>
+  //         <p><a>Date:</a> ${trip.date}</p>
+  //         <p><a>Duration:</a> ${trip.duration} days</p>
+  //         <p><a>Status:</a> ${trip.status}</p>
+  //       </section>`
+  //   });
+  //   console.log('displayApprovedTrips is running');
+  // },
+
+  displayUpcomingTrips(upcomingTrips, travelerDestinations) {
+    let destination = new Destination(travelerDestinations);
+    let separateTrips = upcomingTrips.forEach(trip => {
       let destinationInfo = destination.getDestinationDetails(trip.destinationID);
       document.querySelector('.upcoming-trips-info').innerHTML +=
       `<section class='new-trip-info'>
@@ -27,14 +57,14 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayAllTrips is running');
+    console.log('displayUpcomingTrips is running');
   },
 
-  displayApprovedTrips(travelerApprovedTrips, travelerDestinations) {
+  displayPastTrips(pastTrips, travelerDestinations) {
     let destination = new Destination(travelerDestinations);
-    let separateTrips = travelerApprovedTrips.forEach(trip => {
+    let separateTrips = pastTrips.forEach(trip => {
       let destinationInfo = destination.getDestinationDetails(trip.destinationID);
-      document.querySelector('.upcoming-trips-info').innerHTML +=
+      document.querySelector('.past-trips-info').innerHTML +=
       `<section class='new-trip-info'>
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
@@ -42,7 +72,7 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayApprovedTrips is running');
+    console.log('displayUpcomingTrips is running');
   },
 
   displayPendingTrips(travelerPendingTrips, travelerDestinations) {
@@ -63,7 +93,6 @@ let domUpdates = {
   displayCostSpent(traveler) {
     let amountInDollars = traveler.amountSpent.toFixed(2)
     document.querySelector('.traveler-expenses-amount').innerText = `$${amountInDollars}`;
-
   }
 }
 
