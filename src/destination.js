@@ -11,11 +11,12 @@ class Destination {
 
   getDestinationDetails(id) {
     let allDestinations = this.destinationData;
-    let filteredDestinations = allDestinations.filter(destination => {
+    let filteredDestinations = allDestinations.find(destination => {
       return destination.id === id;
     })
     return filteredDestinations;
   }
+
 };
 
 export default Destination;
