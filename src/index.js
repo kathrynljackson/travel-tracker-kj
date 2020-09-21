@@ -22,11 +22,12 @@ let allTravelers;
 let allTrips;
 let allDestinations;
 let traveler;
-let travelerName;
+//let travelerName;
 let createData = [];
-let trip;
+//let trip;
 let destination;
 let travelerDestinations;
+
 
 
 
@@ -75,6 +76,12 @@ function generateTraveler() {
   console.log('travelerTrips',travelerTrips);
   console.log('traveler.trips',traveler.trips);
 
+  let travelerApprovedTrips = trip.findMyApprovedTrips(traveler.id);
+  console.log('travelerApprovedTrips',travelerApprovedTrips);
+
+  let travelerPendingTrips = trip.findMyPendingTrips(traveler.id);
+  console.log('travelerPendingTrips',travelerPendingTrips);
+
 
   let destination = new Destination(allDestinations);
 
@@ -84,21 +91,39 @@ function generateTraveler() {
   });
   console.log('travelerDestinations',travelerDestinations)
 
+  let tripCosts = travelerDestinations.map(place => {
+    let destination = new Destination(travelerDestinations);
+    let travelerAmountSpent = 0;
+    return travelerAmountSpent+= destination.calculateCost(place);
+ });
+  traveler.amountSpent = tripCosts.reduce((sum, cv) => {
+    return sum + cv
+  }, 0);
+  console.log(tripCosts);
+  console.log(traveler.amountSpent);
 
-  domUpdates.displayAllTrips(traveler, travelerDestinations);
+  // let myPastTrips = trip.findPastTrips(travelerTrips);
+  // console.log('myPastTrips', myPastTrips);
+  //
+  // let myPendingTrips = trip.findMyPendingTrips(travelerTrips);
+  // console.log('myPendingTrips', myPendingTrips);
+//today.getTime is not a function
+
+
+
+  //domUpdates.displayAllTrips(traveler, travelerDestinations);
+  domUpdates.displayApprovedTrips(travelerApprovedTrips, travelerDestinations);
+  domUpdates.displayPendingTrips(travelerPendingTrips, travelerDestinations);
+  domUpdates.displayCostSpent(traveler);
+
+
+
+
+
+
+
 }
 
-// function consoleLog(){
-//   console.log('allTravelers outside of function', allTravelers);
-//   console.log('allTrips outside of function', allTrips)
-//   console.log('allDestinations outside of function', allDestinations)
-//   console.log('fetch function outside of function', fetchRequests)
-// }
-// consoleLog();
 
-// function generateTravelerDashboard(){
-//   domUpdates.displayTravelerGreeting(travelerName);
-//   domUpdates.displayAllTrips(travelerTrips);
-// }
 
 export default createData;
