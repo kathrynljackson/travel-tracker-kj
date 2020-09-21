@@ -35,22 +35,6 @@ class Trip {
    return filteredTrips;
  }
 
- findPastTrips(allTrips) {
-   let today = new Date ('2020-09-22')
-   let pastTrips = allTrips.filter(eachTrip => {
-     return new Date(eachTrip.date) < today;
-   })
-   return pastTrips;
- }
-
- findUpcomingTrips(allTrips) {
-   let today = new Date ('2020-09-22')
-   let upcomingTrips = allTrips.filter(eachTrip => {
-     return new Date(eachTrip.date) > today;
-   })
-   return upcomingTrips;
- }
-
 }
 
 
