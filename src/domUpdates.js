@@ -14,36 +14,20 @@ let domUpdates = {
     //it needs to be travelerName, not traveler.name
  },
 
-  // displayAllTrips(traveler, travelerDestinations) {
-  //   let destination = new Destination(travelerDestinations);
-  //
-  //   let separateTrips = traveler.trips.forEach(trip => {
-  //     let destinationInfo = destination.getDestinationDetails(trip.destinationID);
-  //     document.querySelector('.upcoming-trips-info').innerHTML +=
-  //     `<section class='new-trip-info'>
-  //         <p><a>Destination:</a> ${destinationInfo.destination}</p>
-  //         <p><a>Date:</a> ${trip.date}</p>
-  //         <p><a>Duration:</a> ${trip.duration} days</p>
-  //         <p><a>Status:</a> ${trip.status}</p>
-  //       </section>`
-  //   });
-  //   console.log('displayAllTrips is running');
-  // },
-
-  // displayApprovedTrips(travelerApprovedTrips, travelerDestinations) {
-  //   let destination = new Destination(travelerDestinations);
-  //   let separateTrips = travelerApprovedTrips.forEach(trip => {
-  //     let destinationInfo = destination.getDestinationDetails(trip.destinationID);
-  //     document.querySelector('.upcoming-trips-info').innerHTML +=
-  //     `<section class='new-trip-info'>
-  //         <p><a>Destination:</a> ${destinationInfo.destination}</p>
-  //         <p><a>Date:</a> ${trip.date}</p>
-  //         <p><a>Duration:</a> ${trip.duration} days</p>
-  //         <p><a>Status:</a> ${trip.status}</p>
-  //       </section>`
-  //   });
-  //   console.log('displayApprovedTrips is running');
-  // },
+  displaycurrentTrips(currentTrips, travelerDestinations) {
+    let destination = new Destination(travelerDestinations);
+    let separateTrips = currentTrips.forEach(trip => {
+      let destinationInfo = destination.getDestinationDetails(trip.destinationID);
+      document.querySelector('.current-trips-info').innerHTML +=
+      `<section class='new-trip-info'>
+          <p><a>Destination:</a> ${destinationInfo.destination}</p>
+          <p><a>Date:</a> ${trip.date}</p>
+          <p><a>Duration:</a> ${trip.duration} days</p>
+          <p><a>Status:</a> ${trip.status}</p>
+        </section>`
+    });
+    console.log('displayUpcomingTrips is running');
+  },
 
   displayUpcomingTrips(upcomingTrips, travelerDestinations) {
     let destination = new Destination(travelerDestinations);
