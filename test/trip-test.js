@@ -12,7 +12,7 @@ let tripData;
         "userID": 44,
         "destinationID": 49,
         "travelers": 1,
-        "date": "2019/09/16",
+        "date": "2020/09/16",
         "duration": 8,
         "status": "approved",
         "suggestedActivities": []
@@ -37,6 +37,16 @@ let tripData;
         "status": "pending",
         "suggestedActivities": []
         },
+        {
+        "id": 4,
+        "userID": 3,
+        "destinationID": 22,
+        "travelers": 4,
+        "date": "2020/05/22",
+        "duration": 17,
+        "status": "approved",
+        "suggestedActivities": []
+        },
     ]
 
     tripData = sampleTripData;
@@ -58,7 +68,7 @@ let tripData;
     expect(trip.userID).to.equal(44);
     expect(trip.destinationID).to.equal(49);
     expect(trip.travelers).to.equal(1);
-    expect(trip.date).to.equal("2019/09/16");
+    expect(trip.date).to.equal("2020/09/16");
     expect(trip.duration).to.equal(8)
     expect(trip.status).to.equal("approved");
     expect(trip.suggestedActivities).to.deep.equal([]);
@@ -66,6 +76,16 @@ let tripData;
 
   it('should find each traveler\'s trips', () => {
     trip.findMyTrips(44);
-    expect(trip.findMyTrips(44)).to.deep.equal([tripData[0]])
+    expect(trip.findMyTrips(44)).to.deep.equal([tripData[0]]);
+  })
+
+  it('should find pending trips', () => {
+    trip.findMyPendingTrips(3);
+    expect(trip.findMyPendingTrips(3)).to.deep.equal([tripData[2]])
+  })
+
+  it('should find approved trips', () => {
+    trip.findMyApprovedTrips(3);
+    expect(trip.findMyApprovedTrips(3)).to.deep.equal([tripData[3]])
   })
 })

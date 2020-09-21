@@ -65,23 +65,15 @@ function retrieveData(){
 function generateTraveler() {
   traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
   let travelerName = traveler.getFirstName();
-  //traveler.name = travelerName; <--NO!!!!!
-  console.log('traveler.name',traveler.name);
   domUpdates.displayTravelerGreeting(travelerName);
 
-  // let travelerID = traveler.id;
   let trip = new Trip(allTrips);
   let travelerTrips = trip.findMyTrips(traveler.id);
   traveler.trips = travelerTrips;
-  console.log('travelerTrips',travelerTrips);
-  console.log('traveler.trips',traveler.trips);
 
   let travelerApprovedTrips = trip.findMyApprovedTrips(traveler.id);
-  console.log('travelerApprovedTrips',travelerApprovedTrips);
 
   let travelerPendingTrips = trip.findMyPendingTrips(traveler.id);
-  console.log('travelerPendingTrips',travelerPendingTrips);
-
 
   let destination = new Destination(allDestinations);
 
@@ -89,7 +81,6 @@ function generateTraveler() {
   travelerDestinations = travelerTrips.map(trip => {
     return destination.getDestinationDetails(trip.destinationID);
   });
-  console.log('travelerDestinations',travelerDestinations)
 
   let tripCosts = travelerDestinations.map(place => {
     let destination = new Destination(travelerDestinations);
@@ -99,30 +90,67 @@ function generateTraveler() {
   traveler.amountSpent = tripCosts.reduce((sum, cv) => {
     return sum + cv
   }, 0);
-  console.log(tripCosts);
-  console.log(traveler.amountSpent);
 
-  // let myPastTrips = trip.findPastTrips(travelerTrips);
-  // console.log('myPastTrips', myPastTrips);
-  //
-  // let myPendingTrips = trip.findMyPendingTrips(travelerTrips);
-  // console.log('myPendingTrips', myPendingTrips);
-//today.getTime is not a function
+  determineWithinRange(travelerTrips);
 
+  let currentTrips = findCurrentTrips(travelerApprovedTrips);
+  domUpdates.displaycurrentTrips(currentTrips, travelerDestinations);
 
+  let pastTrips = findPastTrips(travelerApprovedTrips);
+  domUpdates.displayPastTrips(pastTrips, travelerDestinations);
 
-  //domUpdates.displayAllTrips(traveler, travelerDestinations);
-  domUpdates.displayApprovedTrips(travelerApprovedTrips, travelerDestinations);
+  let upcomingTrips = findUpcomingTrips(travelerApprovedTrips);
+  domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
+
   domUpdates.displayPendingTrips(travelerPendingTrips, travelerDestinations);
   domUpdates.displayCostSpent(traveler);
 
-
-
-
-
-
-
 }
+
+function findPastTrips(allTrips) {
+  let today = new Date(Date.now())
+  let pastTrips = allTrips.filter(eachTrip => {
+   return new Date(eachTrip.date) < today && eachTrip.current === false;
+  })
+  return pastTrips;
+}
+
+function findUpcomingTrips(allTrips) {
+ let today = new Date(Date.now())
+ let upcomingTrips = allTrips.filter(eachTrip => {
+   return new Date(eachTrip.date) > today && eachTrip.current === false;
+ })
+ return upcomingTrips;
+}
+
+function determineWithinRange(allTrips) {
+ let today = new Date(Date.now());
+ let findEndDate = allTrips.forEach(trip => {
+   trip.lastDay = new Date(trip.date).addDays(trip.duration)
+ })
+ let isCurrent = allTrips.forEach(trip => {
+  if((new Date(trip.date)) < today && trip.lastDay > today) {
+    trip.current = true
+  } else {
+  trip.current = false
+  }
+ })
+}
+
+function findCurrentTrips(allTrips) {
+ let currentTrips = allTrips.filter(trip => {
+   return trip.current === true
+ })
+ return currentTrips
+}
+
+Date.prototype.addDays = function(days) {
+  let date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
+
+
 
 
 
