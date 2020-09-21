@@ -17,6 +17,13 @@ class Destination {
     return filteredDestinations;
   }
 
+  calculateCost(destination) {
+    let sum = destination.estimatedLodgingCostPerDay + destination.estimatedFlightCostPerPerson;
+    let travelAgentFee = sum * 0.10;
+    let total = sum + travelAgentFee;
+    return total;
+  }
+
 };
 
 export default Destination;
