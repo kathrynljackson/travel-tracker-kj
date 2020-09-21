@@ -66,6 +66,16 @@ let tripData;
 
   it('should find each traveler\'s trips', () => {
     trip.findMyTrips(44);
-    expect(trip.findMyTrips(44)).to.deep.equal([tripData[0]])
+    expect(trip.findMyTrips(44)).to.deep.equal([tripData[0]]);
+  })
+
+  it('should return past trips', () => {
+    trip.findPastTrips(tripData);
+    expect(trip.findPastTrips(tripData)).to.deep.equal([tripData[0], tripData[2]]);
+  })
+
+  it('should return upcoming trips', () => {
+    trip.findUpcomingTrips(tripData);
+    expect(trip.findUpcomingTrips(tripData)).to.deep.equal([tripData[1]]);
   })
 })

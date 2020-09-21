@@ -36,23 +36,19 @@ class Trip {
  }
 
  findPastTrips(allTrips) {
-   // let allTrips = this.tripData;
-   let today = '2020-09-21'
+   let today = new Date ('2020-09-22')
    let pastTrips = allTrips.filter(eachTrip => {
-     let newDate = new Date(eachTrip.date);
-     return newDate.getTime() < today.getTime();
+     return new Date(eachTrip.date) < today;
    })
    return pastTrips;
  }
 
  findUpcomingTrips(allTrips) {
-   // let allTrips = this.tripData;
-   let today = '2020-09-21'
-   let pendingTrips = allTrips.filter(eachTrip => {
-     let newDate = new Date(eachTrip.date);
-     return newDate.getTime() < today.getTime()
+   let today = new Date ('2020-09-22')
+   let upcomingTrips = allTrips.filter(eachTrip => {
+     return new Date(eachTrip.date) > today;
    })
-   return pendingTrips;
+   return upcomingTrips;
  }
 
 }
