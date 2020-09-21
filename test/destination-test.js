@@ -55,4 +55,10 @@ describe('Traveler', function() {
     expect(destination.alt).to.equal("overview of city buildings with a clear sky");
   })
 
+  it('should find the destination information', () => {
+    destination.getDestinationDetails(1);
+
+    expect(destination.getDestinationDetails(1)).to.deep.equal([destinationData[0]]);
+  })
+
 });

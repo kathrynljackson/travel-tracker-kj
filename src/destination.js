@@ -8,6 +8,14 @@ class Destination {
     this.image = destinationData.image,
     this.alt = destinationData.alt
   }
+
+  getDestinationDetails(id) {
+    let allDestinations = this.destinationData;
+    let filteredDestinations = allDestinations.filter(destination => {
+      return destination.id === id;
+    })
+    return filteredDestinations;
+  }
 };
 
 export default Destination;
