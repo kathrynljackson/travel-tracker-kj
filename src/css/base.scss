@@ -328,16 +328,20 @@ body {
 }
 
 .potential-trips {
-
+ display: flex;
+ flex-wrap: wrap;
+ flex-direction: row;
+ color: $light-pink;
+ align-items: stretch;
 }
 
 .potential-trip {
-  height: auto;
-  max-width: 45%;
+
+  max-width: 43%;
   border-radius: 5px;
   border: solid 3px $pink;
-  padding: 1%;
-  margin:1%;
+  padding: 2%;
+  margin:2% 1% 2% 1%;
 
 
   .destination-card-title {
