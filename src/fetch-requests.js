@@ -1,45 +1,34 @@
 import createData from './index.js'
-
-// let fetchRequests = {
-//   getTravelerData() {
-//     fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers')
-//       .then(response => response.json())
-//       .then(data => {
-//         console.log(data);
-//         const pleaseGetTravelerData = data.map(traveler => {
-//           return traveler;
-//         })
-//       })
-//       .then(traveler => createData.createTravelerData(traveler))
-//       .catch(err => console.log('ERROR IS OCCURING IN getTravelerData'))
-//  },
-//
-//  getSingleTravelerData(id) {
-//    fetch(`https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers/${id}`)
-//      .then(response = response.json())
-//      .then(data => console.log(data))
-//      .then(data => createData.createSingleTravelerData(data))
-//      .catch(err => console.log('ERROR IS OCCURING IN getSingleTravelerData'))
-//  },
-//
-//   getTripData() {
-//     fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips')
-//       .then(response => response.json())
-//       .then(data => console.log(data))
-//       .then(data => createData.createTripData(data))
-//       .catch(err => console.log('ERROR IS OCCURING IN getTripData'))
-//   },
-//
-//   getDestinationData() {
-//     fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/destinations/destinations')
-//     .then(response => response.json())
-//     .then(data => console.log(data))
-//     .then(data => createData.createDestinationData(data))
-//     .catch(err => console.log('ERROR IS OCCURING IN getDestinationData'))
-//   }
-// }
+import domUpdates from './domUpdates.js'
+import Trip from './trip.js'
 
 let fetchRequests = {
+  postData(traveler, travelersAmountInput, durationInput, dateInput) {
+
+    let data = {
+      id: Date.now(),
+      userID: traveler.id,
+      travelers: parseInt(travelersAmountInput.value),
+      date: dateInput.value,
+      duration: parseInt(durationInput.value),
+      status: 'pending',
+      suggestedActivities: [],
+    };
+
+    let dataToPost = JSON.stringify(data)
+
+    return fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips', {
+      method: 'POST',
+      body: dataToPost,
+      headers: {
+        'Content-Type':'application/json'
+      }})
+      .then(response => response.json())
+      .then(response => console.log('This is the data', data))
+      .then(response => console.log(`Resource with id ${data.id} successfully posted, newResource: ${JSON.stringify(data)}`))
+      .catch(err => console.log('There was an error posting this data.'));
+  },
+
   getData() {
     return Promise.all([
       fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers'),

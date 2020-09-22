@@ -15,36 +15,34 @@ import fetchRequests from './fetch-requests.js';
 import domUpdates from './domUpdates.js';
 
 
+//let bookTripButton = document.querySelector('.book-trip-button');
 let travelerGreeting = document.querySelector('.traveler-dashboard-greeting');
+let plannerButton = document.querySelector('.planner-button');
+let filterTripButton = document.querySelector('.filter-trip-button');
+let durationInput = document.querySelector('.planner-input-duration');
+let travelersAmountInput = document.querySelector('.planner-input-travelers');
+let dateInput = document.querySelector('.planner-input-date');
+
 
 
 let allTravelers;
 let allTrips;
 let allDestinations;
 let traveler;
-//let travelerName;
 let createData = [];
-//let trip;
 let destination;
 let travelerDestinations;
-
-
-
+//let activateBookTripButton;
+//let bookTripButton;
+let CurrentTraveler = {};
 
 
 window.addEventListener('load', fetchRequests.getData);
 window.addEventListener('load', retrieveData);
 window.addEventListener('load', generateTraveler);
-//window.addEventListener('load', generateTravelerDashboard);
-//window.addEventListener('load', consoleLog);
+plannerButton.addEventListener('click', domUpdates.showInfoForm);
+filterTripButton.addEventListener('click', displayDestinations);
 
-// function retrieveData(){
-//   fetchRequests.getTravelerData();
-//   fetchRequests.getTripData();
-//   fetchRequests.getDestinationData();
-//   createSingleTravelerData();
-//   createTravelerData();
-// }
 
 function retrieveData(){
   fetchRequests.getData()
@@ -52,20 +50,18 @@ function retrieveData(){
   .then(([tra, tri, des]) => {
     allTravelers = tra.travelers;
     allTrips = tri.trips;
-    //.map(trip => new Trip(trip));
     allDestinations = des.destinations;
-    //console.log('allTravelers inside retrieveData()', allTravelers);
-    //console.log('allTrips inside retrieveData()',allTrips);
-    //console.log('allDestinations inside retrieveData()', allDestinations);
+
     generateTraveler();
   })
 }
-
 
 function generateTraveler() {
   traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
   let travelerName = traveler.getFirstName();
   domUpdates.displayTravelerGreeting(travelerName);
+  CurrentTraveler = traveler;
+  console.log(CurrentTraveler);
 
   let trip = new Trip(allTrips);
   let travelerTrips = trip.findMyTrips(traveler.id);
@@ -94,7 +90,8 @@ function generateTraveler() {
   determineWithinRange(travelerTrips);
 
   let currentTrips = findCurrentTrips(travelerApprovedTrips);
-  domUpdates.displaycurrentTrips(currentTrips, travelerDestinations);
+  domUpdates.displayCurrentTrips(currentTrips, travelerDestinations);
+  console.log('currentTrips', currentTrips)
 
   let pastTrips = findPastTrips(travelerApprovedTrips);
   domUpdates.displayPastTrips(pastTrips, travelerDestinations);
@@ -104,8 +101,12 @@ function generateTraveler() {
 
   domUpdates.displayPendingTrips(travelerPendingTrips, travelerDestinations);
   domUpdates.displayCostSpent(traveler);
-
 }
+
+function displayDestinations(){
+  domUpdates.displayDestinationOptions(allDestinations, CurrentTraveler);
+}
+
 
 function findPastTrips(allTrips) {
   let today = new Date(Date.now())
@@ -116,6 +117,7 @@ function findPastTrips(allTrips) {
 }
 
 function findUpcomingTrips(allTrips) {
+
  let today = new Date(Date.now())
  let upcomingTrips = allTrips.filter(eachTrip => {
    return new Date(eachTrip.date) > today && eachTrip.current === false;
@@ -123,7 +125,15 @@ function findUpcomingTrips(allTrips) {
  return upcomingTrips;
 }
 
+
+Date.prototype.addDays = function(days) {
+  let date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
+
 function determineWithinRange(allTrips) {
+
  let today = new Date(Date.now());
  let findEndDate = allTrips.forEach(trip => {
    trip.lastDay = new Date(trip.date).addDays(trip.duration)
@@ -142,6 +152,7 @@ function findCurrentTrips(allTrips) {
    return trip.current === true
  })
  return currentTrips
+ console.log('currentTrips is running')
 }
 
 Date.prototype.addDays = function(days) {
@@ -149,9 +160,5 @@ Date.prototype.addDays = function(days) {
   date.setDate(date.getDate() + days);
   return date;
 }
-
-
-
-
 
 export default createData;

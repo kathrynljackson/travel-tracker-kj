@@ -4,7 +4,12 @@ import travelerGreeting from './index.js';
 import Destination from './destination.js';
 import destination from './index.js';
 import createData from './index.js';
+import fetchRequests from './fetch-requests.js';
+import CurrentTraveler from './index.js'
 
+let durationInput = document.querySelector('.planner-input-duration');
+let travelersAmountInput = document.querySelector('.planner-input-travelers');
+let dateInput = document.querySelector('.planner-input-date');
 
 let domUpdates = {
 
@@ -14,7 +19,7 @@ let domUpdates = {
     //it needs to be travelerName, not traveler.name
  },
 
-  displaycurrentTrips(currentTrips, travelerDestinations) {
+  displayCurrentTrips(currentTrips, travelerDestinations) {
     let destination = new Destination(travelerDestinations);
     let separateTrips = currentTrips.forEach(trip => {
       let destinationInfo = destination.getDestinationDetails(trip.destinationID);
@@ -26,7 +31,7 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayUpcomingTrips is running');
+    console.log('displayCurrentTrips is running');
   },
 
   displayUpcomingTrips(upcomingTrips, travelerDestinations) {
@@ -56,7 +61,7 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayUpcomingTrips is running');
+    console.log('displayPastTrips is running');
   },
 
   displayPendingTrips(travelerPendingTrips, travelerDestinations) {
@@ -77,6 +82,44 @@ let domUpdates = {
   displayCostSpent(traveler) {
     let amountInDollars = traveler.amountSpent.toFixed(2)
     document.querySelector('.traveler-expenses-amount').innerText = `$${amountInDollars}`;
+  },
+
+  showInfoForm(){
+    let infoForm = document.querySelector('.info-form');
+    let plannerButton = document.querySelector('.planner-button');
+      if (infoForm.style.display === "none") {
+        infoForm.style.display = "block";
+        plannerButton.innerText = "Hide Form";
+      } else {
+        infoForm.style.display = "none";
+        plannerButton.innerText = "Plan My Next Trip";
+      }
+  },
+
+  displayDestinationOptions(potentialDestinations, currentTraveler){
+    let traveler;
+    let bookTripButton;
+    let destination = new Destination(potentialDestinations);
+    let separateDestinations = potentialDestinations.forEach(place => {
+      let destinationInfo = destination.getDestinationDetails(place.ID);
+      let flightCost = place.estimatedFlightCostPerPerson;
+      let lodgingCost = place.estimatedLodgingCostPerDay;
+      let estimatedCostTrip = ((parseInt(travelersAmountInput.value)) * flightCost) + (lodgingCost * (parseInt(durationInput.value)));
+      let estimatedCostFee = estimatedCostTrip * 0.10;
+      let estimatedCost = estimatedCostFee + estimatedCostTrip;
+      document.querySelector('.potential-trips').innerHTML +=
+      `<section class='potential-trip'>
+          <p class='destination-card-title'>${place.destination}</p>
+          <p class='destination-card-info'>Estimated Cost: $${estimatedCost.toFixed(2)}</p>
+          <img class='destination-image' src='${place.image}' alt='${place.alt}'>
+          <button class='book-trip-button'>Book ${place.destination} Trip Now</button>
+        </section>`;
+    })
+    bookTripButton = document.querySelectorAll('.book-trip-button');
+    let activateBookTripButton = bookTripButton.forEach(button => {
+      button.addEventListener('click', () => {fetchRequests.postData(currentTraveler, travelersAmountInput, durationInput, dateInput)
+      });
+    })
   }
 }
 

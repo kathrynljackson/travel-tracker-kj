@@ -18,8 +18,10 @@
     <main class='main'>
       <section class='login-widget'>
         <!-- <a class='login-text'>Login</a> -->
-        <a><input class='username-input input' placeholder="Username"></a>
-        <a><input class='password-input input' placeholder="Password"></a>
+        <label for='usernameinput' class='hidden'>Username Input</label>
+        <a><input class='username-input input' aria-label='Username' name='usernameinput' placeholder="Username"></a>
+        <label for='passwordinput' class='hidden'>Password Input</label>
+        <a><input class='password-input input' aria-label='Password' name='passwordinput' placeholder="Password"></a>
         <button class='login-button'>Login</button>
       </section>
       <section class='traveler-dashboard'>
@@ -52,26 +54,27 @@
           <section class='traveler-planner traveler-dashboard-widget'>
             <h1 class='planner-title'>Planner</h1>
             <section class='trip-info-form planner-section'>
-              <section class='info-form info-form-date'>Date: <input class='planner-input planner-input-date' type='date'></input></section>
-              <section class='info-form info-form-duration'>Duration: <input class='planner-input planner-input-duration' placeholder='Length of Trip'></input></section>
-              <section class='info-form info-form-travelers'>Number of Travelers: <input class='planner-input planner-input-travelers' placeholder='0'></input></section>
-              <button class='planner-button'>Get Estimated Cost</button>
+              <button class='planner-button'>Plan My Next Trip</button>
+              <section class='info-form'>
+                <section class='info-form-input info-form-date'>Date: <input class='planner-input planner-input-date' type='date'></input></section>
+                <section class='info-form-input info-form-duration'>Duration:
+                  <label for='durationinput' class='hidden'>Duration Input</label>
+                  <input class='planner-input planner-input-duration' name='durationinput' placeholder='0'>days</input>
+                </section>
+                <section class='info-form-input info-form-travelers'>Number of Travelers:
+                  <label for='travelerinput' class='hidden'>Traveler Input</label>
+                  <input class='planner-input planner-input-travelers' name='travelerinput' placeholder='0'></input>
+                </section>
+                <button class='filter-trip-button'>Plan My Next Trip</button>
+              </section>
             </section>
-            <section class='trip-booking planner-section'>
-              <h2 class='trip-booking-title'>Estimated Cost:<h2>
-              <a class='trip-cost'>Cost Goes Here</a><br></br>
-              <button class='planner-button'>Book Trip</button>
+            <section class='potential-trips planner-section'>
             </section>
           </section>
         </section>
       </section>
     </main>
     <img src="./images/turing-logo.png" alt="turing logo" height="100px" width="100px">
-    <!-- <script type='text/javascript' src='./traveler.js'></script>
-    <script type='text/javascript' src='./trip.js'></script>
-    <script type='text/javascript' src='./destination.js'></script>
-    <script type='text/javascript' src='./domUpdates.js'></script> -->
-    <!-- <script type='text/javascript' src='./index.js'></script> -->
     <!-- Do not include the index.js or main.bundle.js file here - it is done automatically by the webpack server -->
   </body>
 </html>
