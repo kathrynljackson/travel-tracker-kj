@@ -32,8 +32,9 @@ let traveler;
 let createData = [];
 let destination;
 let travelerDestinations;
-let activateBookTripButton;
-let bookTripButton;
+//let activateBookTripButton;
+//let bookTripButton;
+let CurrentTraveler = {};
 
 
 window.addEventListener('load', fetchRequests.getData);
@@ -41,8 +42,6 @@ window.addEventListener('load', retrieveData);
 window.addEventListener('load', generateTraveler);
 plannerButton.addEventListener('click', domUpdates.showInfoForm);
 filterTripButton.addEventListener('click', displayDestinations);
-//bookTripButton.addEventListener('click', postData);
-
 
 
 function retrieveData(){
@@ -57,17 +56,12 @@ function retrieveData(){
   })
 }
 
-// function postData(){
-//   fetchRequests.postData(traveler)
-//   .then(response => response.json())
-//   .then(console.log('Resource with id '+data.id+' successfully posted, newResource: '+data))
-//   .catch(err => console.log('There was an error posting this data.'))
-// }
-
 function generateTraveler() {
   traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
   let travelerName = traveler.getFirstName();
   domUpdates.displayTravelerGreeting(travelerName);
+  CurrentTraveler = traveler;
+  console.log(CurrentTraveler);
 
   let trip = new Trip(allTrips);
   let travelerTrips = trip.findMyTrips(traveler.id);
@@ -110,10 +104,7 @@ function generateTraveler() {
 }
 
 function displayDestinations(){
-
-  domUpdates.displayDestinationOptions(allDestinations);
-  // bookTripButton = document.querySelectorAll('.book-trip-button');
-  // activateBookTripButton = bookTripButton.addEventListener('click', postData)
+  domUpdates.displayDestinationOptions(allDestinations, CurrentTraveler);
 }
 
 
