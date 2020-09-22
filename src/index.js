@@ -16,6 +16,8 @@ import domUpdates from './domUpdates.js';
 
 
 let travelerGreeting = document.querySelector('.traveler-dashboard-greeting');
+let plannerButton = document.querySelector('.planner-button');
+let filterTripButton = document.querySelector('.filter-trip-button');
 
 
 let allTravelers;
@@ -35,16 +37,8 @@ let travelerDestinations;
 window.addEventListener('load', fetchRequests.getData);
 window.addEventListener('load', retrieveData);
 window.addEventListener('load', generateTraveler);
-//window.addEventListener('load', generateTravelerDashboard);
-//window.addEventListener('load', consoleLog);
-
-// function retrieveData(){
-//   fetchRequests.getTravelerData();
-//   fetchRequests.getTripData();
-//   fetchRequests.getDestinationData();
-//   createSingleTravelerData();
-//   createTravelerData();
-// }
+plannerButton.addEventListener('click', domUpdates.showInfoForm);
+filterTripButton.addEventListener('click', displayDestinations);
 
 function retrieveData(){
   fetchRequests.getData()
@@ -52,11 +46,8 @@ function retrieveData(){
   .then(([tra, tri, des]) => {
     allTravelers = tra.travelers;
     allTrips = tri.trips;
-    //.map(trip => new Trip(trip));
     allDestinations = des.destinations;
-    //console.log('allTravelers inside retrieveData()', allTravelers);
-    //console.log('allTrips inside retrieveData()',allTrips);
-    //console.log('allDestinations inside retrieveData()', allDestinations);
+
     generateTraveler();
   })
 }
@@ -104,6 +95,15 @@ function generateTraveler() {
 
   domUpdates.displayPendingTrips(travelerPendingTrips, travelerDestinations);
   domUpdates.displayCostSpent(traveler);
+
+}
+
+function displayDestinations(){
+  domUpdates.displayDestinationOptions(allDestinations);
+  console.log('displayDestinations',allDestinations);
+}
+
+function filterPotentialTrips(){
 
 }
 

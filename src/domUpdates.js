@@ -5,6 +5,8 @@ import Destination from './destination.js';
 import destination from './index.js';
 import createData from './index.js';
 
+let durationInput = document.querySelector('.planner-input-duration');
+let travelersAmountInput = document.querySelector('.planner-input-travelers');
 
 let domUpdates = {
 
@@ -77,7 +79,42 @@ let domUpdates = {
   displayCostSpent(traveler) {
     let amountInDollars = traveler.amountSpent.toFixed(2)
     document.querySelector('.traveler-expenses-amount').innerText = `$${amountInDollars}`;
+  },
+
+  showInfoForm(){
+    let infoForm = document.querySelector('.info-form');
+    let plannerButton = document.querySelector('.planner-button');
+      if (infoForm.style.display === "none") {
+        infoForm.style.display = "block";
+        plannerButton.innerText = "Hide Form";
+      } else {
+        infoForm.style.display = "none";
+        plannerButton.innerText = "Plan My Next Trip";
+      }
+  },
+
+  displayDestinationOptions(potentialDestinations){
+    let destination = new Destination(potentialDestinations);
+    console.log(durationInput.value);
+    console.log(travelersAmountInput.value);
+    let separateDestinations = potentialDestinations.forEach(place => {
+      let destinationInfo = destination.getDestinationDetails(place.ID);
+      let flightCost = place.estimatedFlightCostPerPerson;
+      let lodgingCost = place.estimatedLodgingCostPerDay;
+      let estimatedCostTrip = ((parseInt(travelersAmountInput.value)) * flightCost) + (lodgingCost * (parseInt(durationInput.value)));
+      let estimatedCostFee = estimatedCostTrip * 0.10;
+      let estimatedCost = estimatedCostFee + estimatedCostTrip;
+      document.querySelector('.potential-trips').innerHTML +=
+      `<section class='potential-trip'>
+          <p class='destination-card-title'>${place.destination}</p>
+          <p class='destination-card-info'>Estimated Cost: $${estimatedCost.toFixed(2)}</p>
+          <img class='destination-image' src='${place.image}' alt='${place.alt}'>
+          <button class='book-trip-button'>Book ${place.destination} Trip Now</button>
+        </section>`
+    })
   }
+
+
 }
 
 export default domUpdates;
