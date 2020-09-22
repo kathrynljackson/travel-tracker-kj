@@ -175,7 +175,8 @@ body {
 
 .traveler-dashboard-main {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
+  flex-direction: column;
   width: 100%;
   height: 100%;
 }
@@ -185,10 +186,12 @@ body {
   border: $primary-background solid 3px;
   border-radius: 5px;
   margin: 1%;
+  width: 90%;
+  // flex-direction: column;
 }
 
 .traveler-trip-info {
-  width: 100%;
+  width: 95%;
   height: 100%;
 
 
@@ -211,8 +214,7 @@ body {
   }
 }
 
-.traveler-planner {
-  width: 100%;
+
 
   .planner-section {
     border-radius: 5px;
@@ -227,24 +229,47 @@ body {
     }
   }
 
-  .trip-info-form {
-    font-size: 25px;
+.trip-info-form {
+  font-size: 25px;
 
-    .info-form {
-      line-height: 1.5;
+  .info-form {
+    display: none;
+
+    button {
+      font-size: 25px;
+      background-color: $light-pink;
+      border-radius: 5px;
+      border: solid $widget-dark 3px;
+      height: 60%;
+      width: 60%;
+      padding: 1%;
+      align-self: center;
+      margin: 1%;
+
+      &:hover {
+        background-color: $widget-dark;
+        border: solid $pink 3px;
+        color: $light-pink;
+        transition: 0.3s;
+      }
     }
   }
 
-  .trip-booking {
+  .info-form-input {
+    line-height: 1.5;
 
-    h2 {
-      font-size: 30px;
-    }
+  }
+}
 
-    a {
-      font-size: 25px;
-      color: $light-pink;
-    }
+.trip-booking {
+
+  h2 {
+    font-size: 30px;
+  }
+
+  a {
+    font-size: 25px;
+    color: $light-pink;
   }
 }
 
@@ -290,6 +315,55 @@ body {
   border: solid $widget-dark 3px;
   height: 60%;
   width: 60%;
+  padding: 1%;
+  align-self: center;
+  margin: 1%;
+
+  &:hover {
+    background-color: $widget-dark;
+    border: solid $pink 3px;
+    color: $light-pink;
+    transition: 0.3s;
+  }
+}
+
+.potential-trips {
+
+}
+
+.potential-trip {
+  height: auto;
+  max-width: 45%;
+  border-radius: 5px;
+  border: solid 3px $pink;
+  padding: 1%;
+  margin:1%;
+
+
+  .destination-card-title {
+    font-size: 25px;
+    align-self: center;
+    font-weight: bolder;
+  }
+
+  .destination-card-info {
+    font-size: 20px;
+  }
+
+  .destination-image {
+    border-radius: 5px;
+    max-width: 90%;
+    align-self: center;
+  }
+}
+
+.book-trip-button {
+  font-size: 15px;
+  background-color: $light-pink;
+  border-radius: 5px;
+  border: solid $widget-dark 3px;
+  height: 60%;
+  width: 90%;
   padding: 1%;
   align-self: center;
   margin: 1%;
