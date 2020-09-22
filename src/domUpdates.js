@@ -5,11 +5,11 @@ import Destination from './destination.js';
 import destination from './index.js';
 import createData from './index.js';
 import fetchRequests from './fetch-requests.js';
+import CurrentTraveler from './index.js'
 
 let durationInput = document.querySelector('.planner-input-duration');
 let travelersAmountInput = document.querySelector('.planner-input-travelers');
 let dateInput = document.querySelector('.planner-input-date');
-//let bookTripButton = document.querySelectorAll('.book-trip-button');
 
 let domUpdates = {
 
@@ -96,12 +96,10 @@ let domUpdates = {
       }
   },
 
-  displayDestinationOptions(potentialDestinations){
+  displayDestinationOptions(potentialDestinations, currentTraveler){
+    let traveler;
     let bookTripButton;
     let destination = new Destination(potentialDestinations);
-    console.log(durationInput.value);
-    console.log(travelersAmountInput.value);
-    console.log(dateInput.value)
     let separateDestinations = potentialDestinations.forEach(place => {
       let destinationInfo = destination.getDestinationDetails(place.ID);
       let flightCost = place.estimatedFlightCostPerPerson;
@@ -116,12 +114,10 @@ let domUpdates = {
           <img class='destination-image' src='${place.image}' alt='${place.alt}'>
           <button class='book-trip-button'>Book ${place.destination} Trip Now</button>
         </section>`;
-      // bookTripButton = document.querySelector('.book-trip-button');
-      // bookTripButton.addEventListener('click', () => {fetchRequests.postData(traveler, travelersAmountInput, durationInput, dateInput)});
     })
     bookTripButton = document.querySelectorAll('.book-trip-button');
     let activateBookTripButton = bookTripButton.forEach(button => {
-      button.addEventListener('click', () => {fetchRequests.postData(traveler, travelersAmountInput, durationInput, dateInput)
+      button.addEventListener('click', () => {fetchRequests.postData(currentTraveler, travelersAmountInput, durationInput, dateInput)
       });
     })
   }
