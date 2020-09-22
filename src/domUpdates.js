@@ -4,9 +4,12 @@ import travelerGreeting from './index.js';
 import Destination from './destination.js';
 import destination from './index.js';
 import createData from './index.js';
+import fetchRequests from './fetch-requests.js';
 
 let durationInput = document.querySelector('.planner-input-duration');
 let travelersAmountInput = document.querySelector('.planner-input-travelers');
+let dateInput = document.querySelector('.planner-input-date');
+//let bookTripButton = document.querySelectorAll('.book-trip-button');
 
 let domUpdates = {
 
@@ -16,7 +19,7 @@ let domUpdates = {
     //it needs to be travelerName, not traveler.name
  },
 
-  displaycurrentTrips(currentTrips, travelerDestinations) {
+  displayCurrentTrips(currentTrips, travelerDestinations) {
     let destination = new Destination(travelerDestinations);
     let separateTrips = currentTrips.forEach(trip => {
       let destinationInfo = destination.getDestinationDetails(trip.destinationID);
@@ -28,7 +31,7 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayUpcomingTrips is running');
+    console.log('displayCurrentTrips is running');
   },
 
   displayUpcomingTrips(upcomingTrips, travelerDestinations) {
@@ -58,7 +61,7 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayUpcomingTrips is running');
+    console.log('displayPastTrips is running');
   },
 
   displayPendingTrips(travelerPendingTrips, travelerDestinations) {
@@ -94,9 +97,11 @@ let domUpdates = {
   },
 
   displayDestinationOptions(potentialDestinations){
+    let bookTripButton;
     let destination = new Destination(potentialDestinations);
     console.log(durationInput.value);
     console.log(travelersAmountInput.value);
+    console.log(dateInput.value)
     let separateDestinations = potentialDestinations.forEach(place => {
       let destinationInfo = destination.getDestinationDetails(place.ID);
       let flightCost = place.estimatedFlightCostPerPerson;
@@ -110,11 +115,16 @@ let domUpdates = {
           <p class='destination-card-info'>Estimated Cost: $${estimatedCost.toFixed(2)}</p>
           <img class='destination-image' src='${place.image}' alt='${place.alt}'>
           <button class='book-trip-button'>Book ${place.destination} Trip Now</button>
-        </section>`
+        </section>`;
+      // bookTripButton = document.querySelector('.book-trip-button');
+      // bookTripButton.addEventListener('click', () => {fetchRequests.postData(traveler, travelersAmountInput, durationInput, dateInput)});
+    })
+    bookTripButton = document.querySelectorAll('.book-trip-button');
+    let activateBookTripButton = bookTripButton.forEach(button => {
+      button.addEventListener('click', () => {fetchRequests.postData(traveler, travelersAmountInput, durationInput, dateInput)
+      });
     })
   }
-
-
 }
 
 export default domUpdates;
