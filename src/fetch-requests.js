@@ -4,9 +4,8 @@ import Trip from './trip.js'
 
 let fetchRequests = {
 
-
   postData(traveler, travelersAmountInput, durationInput, dateInput, placeID) {
-
+    console.log(traveler);
     let data = {
       id: Date.now(),
       userID: traveler.id,
@@ -27,7 +26,6 @@ let fetchRequests = {
         'Content-Type':'application/json'
       }})
       .then(response => response.json())
-      .then(response => console.log('This is the data', data))
       .then(response => console.log(`Resource with id ${data.id} successfully posted, newResource: ${JSON.stringify(data)}`))
       .catch(err => console.log('There was an error posting this data.'));
   },
@@ -41,12 +39,9 @@ let fetchRequests = {
   },
 
   getSpecificData(id) {
-    let site = `https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers/${id}`
-    return Promise.all([
-      fetch(site),
-      fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips'),
-      fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/destinations/destinations')
-    ])
+    fetch(`https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers/${+id}`)
+      .then(response => response.json())
+      .then(response => console.log(response))
   }
 }
 

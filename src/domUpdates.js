@@ -15,8 +15,6 @@ let domUpdates = {
 
   displayTravelerGreeting(travelerName) {
     document.querySelector('.traveler-dashboard-greeting').innerText = 'Welcome, '+travelerName+'!';
-    console.log('displayTravelerGreeting is running');
-    //it needs to be travelerName, not traveler.name
  },
 
   displayCurrentTrips(currentTrips, travelerDestinations) {
@@ -31,7 +29,6 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayCurrentTrips is running');
   },
 
   displayUpcomingTrips(upcomingTrips, travelerDestinations) {
@@ -46,7 +43,6 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayUpcomingTrips is running');
   },
 
   displayPastTrips(pastTrips, travelerDestinations) {
@@ -61,7 +57,6 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayPastTrips is running');
   },
 
   displayPendingTrips(travelerPendingTrips, travelerDestinations) {
@@ -76,7 +71,6 @@ let domUpdates = {
           <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayPendingTrips is running');
   },
 
   displayCostSpent(traveler) {
@@ -118,7 +112,6 @@ let domUpdates = {
     })
     bookTripButton = document.querySelectorAll('.book-trip-button');
     let activateBookTripButton = bookTripButton.forEach(button => {
-      console.log('button ids', button.id)
       button.addEventListener('click', () => {fetchRequests.postData(currentTraveler, travelersAmountInput, durationInput, dateInput, button.id)
       });
     })
