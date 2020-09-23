@@ -6,7 +6,7 @@
 
 ## Abstract
 
-For this independent project, the task was to create a travel agency site that allows users to sign in and view their travel data. Users can also choose from a list of desitnations and add a new trip to their dashboard. The main goal was to complete at least three iterations according to the [rubric specicifactions](https://frontend.turing.io/projects/travel-tracker.html). We were required to test each class in terms of both their default properties and methods. This project also required collaboration, as we were instructed to send at least two pull requests to an assigned partner.
+For this independent project, the task was to create a travel agency site that allows users to sign in and view their travel data. Users can also choose from a list of desitnations and add a new trip to their dashboard. The main goal was to complete at least three iterations according to the [rubric specifications](https://frontend.turing.io/projects/travel-tracker.html). We were required to test each class in terms of both their default properties and methods. This project also required collaboration, as we were instructed to send at least two pull requests to an assigned partner.
 
 ## Project Goals
 
