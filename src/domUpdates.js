@@ -1,11 +1,12 @@
 import Traveler from './traveler.js';
-import traveler from './index.js';
+//import traveler from './index.js';
 import travelerGreeting from './index.js';
 import Destination from './destination.js';
-import destination from './index.js';
+//import destination from './index.js';
 import createData from './index.js';
 import fetchRequests from './fetch-requests.js';
-import CurrentTraveler from './index.js'
+import currentTraveler from './index.js'
+import './index.js'
 
 let durationInput = document.querySelector('.planner-input-duration');
 let travelersAmountInput = document.querySelector('.planner-input-travelers');
