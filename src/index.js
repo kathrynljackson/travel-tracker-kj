@@ -17,6 +17,7 @@ let dateInput = document.querySelector('.planner-input-date');
 let usernameInput = document.querySelector('.username-input');
 let passwordInput = document.querySelector('.password-input');
 let loginButton = document.querySelector('.login-button');
+let travelerDashboard = document.querySelector('.traveler-dashboard');
 
 let allTravelers;
 let allTrips;
@@ -46,6 +47,7 @@ function retrieveData(){
 function login(){
   let userID = parseInt(usernameInput.value[8]+usernameInput.value[9]);
   retrieveSpecificData(userID);
+  document.querySelector('.traveler-dashboard').style.display = 'flex';
 }
 
 function retrieveSpecificData(id){
