@@ -102,6 +102,7 @@ let domUpdates = {
     let destination = new Destination(potentialDestinations);
     let separateDestinations = potentialDestinations.forEach(place => {
       let destinationInfo = destination.getDestinationDetails(place.ID);
+      let destinationID = place.id;
       let flightCost = place.estimatedFlightCostPerPerson;
       let lodgingCost = place.estimatedLodgingCostPerDay;
       let estimatedCostTrip = ((parseInt(travelersAmountInput.value)) * flightCost) + (lodgingCost * (parseInt(durationInput.value)));
@@ -112,12 +113,13 @@ let domUpdates = {
           <p class='destination-card-title'>${place.destination}</p>
           <p class='destination-card-info'>Estimated Cost: $${estimatedCost.toFixed(2)}</p>
           <img class='destination-image' src='${place.image}' alt='${place.alt}'>
-          <button class='book-trip-button'>Book ${place.destination} Trip Now</button>
+          <button id='${place.id}' class='book-trip-button'>Book ${place.destination} Trip Now</button>
         </section>`;
     })
     bookTripButton = document.querySelectorAll('.book-trip-button');
     let activateBookTripButton = bookTripButton.forEach(button => {
-      button.addEventListener('click', () => {fetchRequests.postData(currentTraveler, travelersAmountInput, durationInput, dateInput)
+      console.log('button ids', button.id)
+      button.addEventListener('click', () => {fetchRequests.postData(currentTraveler, travelersAmountInput, durationInput, dateInput, button.id)
       });
     })
   }

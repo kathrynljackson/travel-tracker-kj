@@ -3,13 +3,16 @@ import domUpdates from './domUpdates.js'
 import Trip from './trip.js'
 
 let fetchRequests = {
-  postData(traveler, travelersAmountInput, durationInput, dateInput) {
+
+
+  postData(traveler, travelersAmountInput, durationInput, dateInput, placeID) {
 
     let data = {
       id: Date.now(),
       userID: traveler.id,
+      destinationID: parseInt(placeID),
       travelers: parseInt(travelersAmountInput.value),
-      date: dateInput.value,
+      date: dateInput.value.replace(/-/g, '/'),
       duration: parseInt(durationInput.value),
       status: 'pending',
       suggestedActivities: [],
@@ -34,7 +37,16 @@ let fetchRequests = {
       fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers'),
       fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips'),
       fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/destinations/destinations')
-  ])
+    ])
+  },
+
+  getSpecificData(id) {
+    let site = `https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/travelers/travelers/${id}`
+    return Promise.all([
+      fetch(site),
+      fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/trips/trips'),
+      fetch('https://fe-apps.herokuapp.com/api/v1/travel-tracker/data/destinations/destinations')
+    ])
   }
 }
 

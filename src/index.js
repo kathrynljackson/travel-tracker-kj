@@ -22,6 +22,9 @@ let filterTripButton = document.querySelector('.filter-trip-button');
 let durationInput = document.querySelector('.planner-input-duration');
 let travelersAmountInput = document.querySelector('.planner-input-travelers');
 let dateInput = document.querySelector('.planner-input-date');
+let usernameInput = document.querySelector('.username-input');
+let passwordInput = document.querySelector('.password-input');
+let loginButton = document.querySelector('.login-button');
 
 
 
@@ -35,14 +38,14 @@ let travelerDestinations;
 //let activateBookTripButton;
 //let bookTripButton;
 let CurrentTraveler = {};
+let specificTraveler;
 
-
-window.addEventListener('load', fetchRequests.getData);
-window.addEventListener('load', retrieveData);
-window.addEventListener('load', generateTraveler);
+//window.addEventListener('load', fetchRequests.getData);
+//window.addEventListener('load', retrieveData);
+//window.addEventListener('load', generateTraveler);
 plannerButton.addEventListener('click', domUpdates.showInfoForm);
 filterTripButton.addEventListener('click', displayDestinations);
-
+loginButton.addEventListener('click', login)
 
 function retrieveData(){
   fetchRequests.getData()
@@ -56,8 +59,29 @@ function retrieveData(){
   })
 }
 
+function retrieveSpecificData(id){
+  fetchRequests.getSpecificData(id)
+  .then(responses => Promise.all(responses.map(response => response.json())))
+  .then(([tra, tri, des]) => {
+    specificTraveler = tra.travelers;
+    allTrips = tri.trips;
+    allDestinations = des.destinations;
+
+    generateTraveler();
+  })
+}
+
+function login(){
+console.log('Login function activated')
+let userID = usernameInput.value[8]+usernameInput.value[9];
+console.log(userID);
+console.log(passwordInput.value);
+fetchRequests.getSpecificData(userID);
+}
+
 function generateTraveler() {
-  traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
+  //traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
+  traveler = new Traveler(specificTraveler);
   let travelerName = traveler.getFirstName();
   domUpdates.displayTravelerGreeting(travelerName);
   CurrentTraveler = traveler;
@@ -68,7 +92,6 @@ function generateTraveler() {
   traveler.trips = travelerTrips;
 
   let travelerApprovedTrips = trip.findMyApprovedTrips(traveler.id);
-
   let travelerPendingTrips = trip.findMyPendingTrips(traveler.id);
 
   let destination = new Destination(allDestinations);
@@ -99,7 +122,7 @@ function generateTraveler() {
   let upcomingTrips = findUpcomingTrips(travelerApprovedTrips);
   domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
 
-  domUpdates.displayPendingTrips(travelerPendingTrips, travelerDestinations);
+
   domUpdates.displayCostSpent(traveler);
 }
 
