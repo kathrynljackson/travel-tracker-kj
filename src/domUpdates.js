@@ -15,8 +15,6 @@ let domUpdates = {
 
   displayTravelerGreeting(travelerName) {
     document.querySelector('.traveler-dashboard-greeting').innerText = 'Welcome, '+travelerName+'!';
-    console.log('displayTravelerGreeting is running');
-    //it needs to be travelerName, not traveler.name
  },
 
   displayCurrentTrips(currentTrips, travelerDestinations) {
@@ -28,10 +26,8 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayCurrentTrips is running');
   },
 
   displayUpcomingTrips(upcomingTrips, travelerDestinations) {
@@ -43,10 +39,8 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayUpcomingTrips is running');
   },
 
   displayPastTrips(pastTrips, travelerDestinations) {
@@ -58,10 +52,8 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayPastTrips is running');
   },
 
   displayPendingTrips(travelerPendingTrips, travelerDestinations) {
@@ -73,10 +65,8 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
-    console.log('displayPendingTrips is running');
   },
 
   displayCostSpent(traveler) {
@@ -102,6 +92,7 @@ let domUpdates = {
     let destination = new Destination(potentialDestinations);
     let separateDestinations = potentialDestinations.forEach(place => {
       let destinationInfo = destination.getDestinationDetails(place.ID);
+      let destinationID = place.id;
       let flightCost = place.estimatedFlightCostPerPerson;
       let lodgingCost = place.estimatedLodgingCostPerDay;
       let estimatedCostTrip = ((parseInt(travelersAmountInput.value)) * flightCost) + (lodgingCost * (parseInt(durationInput.value)));
@@ -112,12 +103,12 @@ let domUpdates = {
           <p class='destination-card-title'>${place.destination}</p>
           <p class='destination-card-info'>Estimated Cost: $${estimatedCost.toFixed(2)}</p>
           <img class='destination-image' src='${place.image}' alt='${place.alt}'>
-          <button class='book-trip-button'>Book ${place.destination} Trip Now</button>
+          <button id='${place.id}' class='book-trip-button'>Book ${place.destination} Trip Now</button>
         </section>`;
     })
     bookTripButton = document.querySelectorAll('.book-trip-button');
     let activateBookTripButton = bookTripButton.forEach(button => {
-      button.addEventListener('click', () => {fetchRequests.postData(currentTraveler, travelersAmountInput, durationInput, dateInput)
+      button.addEventListener('click', () => {fetchRequests.postData(currentTraveler, travelersAmountInput, durationInput, dateInput, button.id)
       });
     })
   }

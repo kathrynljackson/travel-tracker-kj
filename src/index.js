@@ -1,12 +1,6 @@
-// This is the JavaScript entry file - your code begins here
-// Do not delete or rename this file ********
-
-// An example of how you tell webpack to use a CSS (SCSS) file
 import './css/base.scss';
 
-// An example of how you tell webpack to use an image (also need to link to it in the index.html)
 import './images/turing-logo.png'
-
 
 import Traveler from './traveler.js';
 import Trip from './trip.js';
@@ -14,16 +8,16 @@ import Destination from './destination.js';
 import fetchRequests from './fetch-requests.js';
 import domUpdates from './domUpdates.js';
 
-
-//let bookTripButton = document.querySelector('.book-trip-button');
 let travelerGreeting = document.querySelector('.traveler-dashboard-greeting');
 let plannerButton = document.querySelector('.planner-button');
 let filterTripButton = document.querySelector('.filter-trip-button');
 let durationInput = document.querySelector('.planner-input-duration');
 let travelersAmountInput = document.querySelector('.planner-input-travelers');
 let dateInput = document.querySelector('.planner-input-date');
-
-
+let usernameInput = document.querySelector('.username-input');
+let passwordInput = document.querySelector('.password-input');
+let loginButton = document.querySelector('.login-button');
+let travelerDashboard = document.querySelector('.traveler-dashboard');
 
 let allTravelers;
 let allTrips;
@@ -32,17 +26,13 @@ let traveler;
 let createData = [];
 let destination;
 let travelerDestinations;
-//let activateBookTripButton;
-//let bookTripButton;
 let CurrentTraveler = {};
+let specificTraveler;
 
-
-window.addEventListener('load', fetchRequests.getData);
 window.addEventListener('load', retrieveData);
-window.addEventListener('load', generateTraveler);
 plannerButton.addEventListener('click', domUpdates.showInfoForm);
 filterTripButton.addEventListener('click', displayDestinations);
-
+loginButton.addEventListener('click', login)
 
 function retrieveData(){
   fetchRequests.getData()
@@ -51,33 +41,43 @@ function retrieveData(){
     allTravelers = tra.travelers;
     allTrips = tri.trips;
     allDestinations = des.destinations;
-
-    generateTraveler();
   })
 }
 
-function generateTraveler() {
-  traveler = new Traveler(allTravelers[Math.floor(Math.random() * allTravelers.length)]);
+function login(){
+  let userID = parseInt(usernameInput.value[8]+usernameInput.value[9]);
+  retrieveSpecificData(userID);
+  document.querySelector('.traveler-dashboard').style.display = 'flex';
+}
+
+function retrieveSpecificData(id){
+  fetchRequests.getSpecificData(id)
+  generateTraveler(id);
+}
+
+function getSpecificTravelerData(id){
+  const specificTraveler = allTravelers.find(data => {
+    return data.id === id;
+  })
+  return specificTraveler;
+}
+
+function generateTraveler(id) {
+  let info = getSpecificTravelerData(id)
+  traveler = new Traveler(info);
   let travelerName = traveler.getFirstName();
   domUpdates.displayTravelerGreeting(travelerName);
-  CurrentTraveler = traveler;
-  console.log(CurrentTraveler);
 
   let trip = new Trip(allTrips);
   let travelerTrips = trip.findMyTrips(traveler.id);
   traveler.trips = travelerTrips;
-
   let travelerApprovedTrips = trip.findMyApprovedTrips(traveler.id);
-
   let travelerPendingTrips = trip.findMyPendingTrips(traveler.id);
-
   let destination = new Destination(allDestinations);
-
 
   travelerDestinations = travelerTrips.map(trip => {
     return destination.getDestinationDetails(trip.destinationID);
   });
-
   let tripCosts = travelerDestinations.map(place => {
     let destination = new Destination(travelerDestinations);
     let travelerAmountSpent = 0;
@@ -88,25 +88,18 @@ function generateTraveler() {
   }, 0);
 
   determineWithinRange(travelerTrips);
-
   let currentTrips = findCurrentTrips(travelerApprovedTrips);
   domUpdates.displayCurrentTrips(currentTrips, travelerDestinations);
-  console.log('currentTrips', currentTrips)
-
   let pastTrips = findPastTrips(travelerApprovedTrips);
   domUpdates.displayPastTrips(pastTrips, travelerDestinations);
-
   let upcomingTrips = findUpcomingTrips(travelerApprovedTrips);
   domUpdates.displayUpcomingTrips(upcomingTrips, travelerDestinations);
-
-  domUpdates.displayPendingTrips(travelerPendingTrips, travelerDestinations);
   domUpdates.displayCostSpent(traveler);
 }
 
 function displayDestinations(){
-  domUpdates.displayDestinationOptions(allDestinations, CurrentTraveler);
+  domUpdates.displayDestinationOptions(allDestinations, traveler);
 }
-
 
 function findPastTrips(allTrips) {
   let today = new Date(Date.now())
@@ -117,7 +110,6 @@ function findPastTrips(allTrips) {
 }
 
 function findUpcomingTrips(allTrips) {
-
  let today = new Date(Date.now())
  let upcomingTrips = allTrips.filter(eachTrip => {
    return new Date(eachTrip.date) > today && eachTrip.current === false;
@@ -133,7 +125,6 @@ Date.prototype.addDays = function(days) {
 }
 
 function determineWithinRange(allTrips) {
-
  let today = new Date(Date.now());
  let findEndDate = allTrips.forEach(trip => {
    trip.lastDay = new Date(trip.date).addDays(trip.duration)
@@ -152,7 +143,6 @@ function findCurrentTrips(allTrips) {
    return trip.current === true
  })
  return currentTrips
- console.log('currentTrips is running')
 }
 
 Date.prototype.addDays = function(days) {
