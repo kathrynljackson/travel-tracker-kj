@@ -47,8 +47,6 @@ For this independent project, the task was to create a travel agency site that a
 ![](https://media3.giphy.com/media/hPPjIhdAX3afWws1WB/giphy.gif)
 
 
-**Functionality**
-
-* This site is responsive and can be viewed on multiple devices.
+* This site is responsive and can be viewed on devices of many sizes.
 * After logging in, users can view their past, present, upcoming, and pending trips on the dashboard.
 * ARIA tags, specific color combinations, and chosen font styles have been implemented to increase accessibility.
