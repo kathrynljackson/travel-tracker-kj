@@ -57,8 +57,13 @@ describe('Traveler', function() {
 
   it('should find the destination information', () => {
     destination.getDestinationDetails(1);
-
     expect(destination.getDestinationDetails(1)).to.equal(destinationData[0]);
   })
 
+  it('should calculate the cost of', () => {
+    let newPlace = new Destination(destinationData[1]);
+
+    destination.calculateCost(newPlace);
+    expect(destination.calculateCost(newPlace)).to.equal(968);
+  })
 });
