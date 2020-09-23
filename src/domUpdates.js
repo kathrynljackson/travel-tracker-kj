@@ -26,7 +26,6 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
   },
@@ -40,7 +39,6 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
   },
@@ -54,7 +52,6 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
   },
@@ -68,7 +65,6 @@ let domUpdates = {
           <p><a>Destination:</a> ${destinationInfo.destination}</p>
           <p><a>Date:</a> ${trip.date}</p>
           <p><a>Duration:</a> ${trip.duration} days</p>
-          <p><a>Status:</a> ${trip.status}</p>
         </section>`
     });
   },
