@@ -5,7 +5,6 @@ describe('Traveler', function() {
  let traveler;
  let travelerData;
 
-
   beforeEach(() => {
     let sampleTravelers = [
       {
@@ -62,5 +61,11 @@ describe('Traveler', function() {
 
     traveler.getFirstName();
     expect(firstName).to.equal('Rachael');
+  })
+
+  it('should return the user object', () => {
+    traveler = new Traveler(travelerData);
+    traveler.getTravelerData(2);
+    expect(traveler.getTravelerData(2)).to.deep.equal(travelerData[1]);
   })
 })
