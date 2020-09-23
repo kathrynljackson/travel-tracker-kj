@@ -1,0 +1,12 @@
+@mixin basic-button {
+  background-color: $light-pink;
+  border-radius: 5px;
+  border: solid $widget-dark 3px;
+}
+
+@mixin basic-button-hover {
+  background-color: $widget-dark;
+  border: solid $pink 3px;
+  color: $light-pink;
+  transition: 0.3s;
+}

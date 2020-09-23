@@ -1,3 +1,6 @@
+@import "./mixins.scss";
+@import "./variables.scss";
+
 $widget-dark: #3e4149;
 $primary-background: #111214;
 $lighter-gray: #444f5a;
@@ -40,6 +43,7 @@ body {
     font-size: 22px;
     column-rule: 0.5px double $widget-dark;
 
+
     &:hover {
       color: $primary-background;
       background-color: $light-pink;
@@ -53,6 +57,10 @@ body {
     font-size: 50px;
   }
 
+}
+
+.header:link {
+  color: $light-pink;
 }
 
 .main {
@@ -124,7 +132,7 @@ body {
 }
 
 .traveler-dashboard {
-  display:flex;
+  display: none;
   flex-direction: column;
   font-size: 30px;
   background: $widget-dark;
@@ -302,12 +310,14 @@ body {
   padding: 1%;
   align-self: center;
   margin: 1%;
+  //@include basic-buttons;
 
   &:hover {
     background-color: $widget-dark;
     border: solid $pink 3px;
     color: $light-pink;
     transition: 0.3s;
+    //@include basic-button-hover;
   }
 }
 
@@ -354,11 +364,13 @@ body {
   padding: 1%;
   align-self: center;
   margin: 1%;
+  //@include basic-button;
 
   &:hover {
     background-color: $widget-dark;
     border: solid $pink 3px;
     color: $light-pink;
     transition: 0.3s;
+   //@include basic-button-hover;
   }
 }
